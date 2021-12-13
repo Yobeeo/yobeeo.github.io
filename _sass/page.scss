@@ -1,0 +1,11 @@
+// 防止代码块过长
+@media only screen {
+  pre {
+    max-height: 66.6vh;
+    padding: 0 1rem;
+    overflow: hidden hidden;
+  }
+  pre:hover {
+    overflow: auto auto;
+  }
+}

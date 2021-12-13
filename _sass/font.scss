@@ -1,0 +1,13 @@
+// 网站字体，要换字体建议架梯子上<https://fonts.google.com/>挑选，再通过fonts.loli.net 加速引入
+.sidebar, html, h1, h2, h3, h4, h5, h6 {
+  font-family: "Courier New", "Courier", "PingFang TC", "WenQuanYi Micro Hei", "Microsoft YaHei Light", "Microsoft JhengHei", monospace;
+}
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 1rem;
+}
+
+// 选中字体颜色
+::selection {
+  color: White;
+  background: Blue;
+}

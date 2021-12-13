@@ -1,45 +1,131 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
-author: Yobeeo
-title: Yobeeo's blog
-email: yobeeo@outlook.com
-description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
-domain: yobeeo.github.io
+port: 8080
+url: http://localhost:8080 # the base hostname & protocol for your site, e.g. http://example.com
 baseurl: "" # the subpath of your site, e.g. /blog
-url: https://yobeeo.github.io # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: Yobeeo
-github_username:  yobeeo
+title: "Yobeeo's Blog" # the name of your site, e.g. ACME Corp.
+exclude: ["Gemfile", "Gemfile.lock", "node_modules", "vendor/bundle/", "vendor/cache/", "vendor/gems/", "vendor/ruby/", "/_includes/partial_html"]
 
-# Build settings
-markdown: kramdown
-theme: minima
-plugins:
-  - jekyll-feed
+repository: Yobeeo/yobeeo.github.io
 
-# Exclude from processing.
-# The following items will not be processed, by default. Create a custom list
-# to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      settings:
+        head:
+        body:
+          theme-base: theme-base-0e # 可选的主题色包括08~0f，见 <https://github.com/poole/lanyon>
+          layout-reverse: false # 开启后sidebar在右边，反之左边
+          sidebar-overlay: false # 开启后正文不随sidebar移动而移动
+          background-img: /assets/imgs/bg_sagiri.jpg   # 背景图片
+        sidebar:
+          enable: true
+          open: true   # 是否展开
+          avatar: # 侧边栏显示的头像
+            enable: true
+            img: /assets/imgs/icon.jpg  # 头像地址
+          search:  # 侧边栏全站搜索
+            enable: true
+            full_text_search: false # 可能导致缓慢的搜索和加载
+            default-text: "搜索博文"
+          navigate:
+            enable: true
+            content: # 导航部分的内容，你也可以自己增加文字、图标（来自fontawesome）和对应的链接
+              - title: '<i class="fas fa-home fa-fw"></i> 首页'
+                href: /
+              - title: '<i class="fas fa-comments fa-fw"></i> 留言'
+                href: /
+              - title: '<i class="fas fa-tags fa-fw"></i> 标签'
+                href: /
+              - title: '<i class="fas fa-archive fa-fw"></i> 归档'
+                href: /
+              - title: '<i class="fas fa-coffee fa-fw"></i> 打赏'
+                href: /
+          toc:
+            enable: true
+          time:   # 时间信息
+            enable: true
+            time-point: "12/07/10 00:00:00" # 时间起点
+          statistics:  # 统计信息
+            enable: false
+          other:  # 备案信息等
+            enable: false
+          wordcount: # 全站字数统计
+            enable: false  # 本地调试时建议关闭，非常影响站点生成速度（所需时间与博文数量的平方成正比）   
+        title: # 为每个页面自动生成一个 H1 title
+          enable: true  
+        live2d: # live2d看板娘插件
+          enable: true
+          mode: fixed  # static/fixed/draggable
+          hidden: true
+          position: right  # right/left
+          width: 600
+          height: 1200
+        katex:   # 公式插件
+          enable: true
+        mermaid: # 画图插件
+          enable: true
+        prism:  # 不知道是什么东西
+          enable: false
+        masthead: # 也不知道是什么东西
+          enable: false
+  - 
+    scope:
+      path: "_includes"
+    values:
+      partial-html: true
+  - 
+    scope:
+      path: "_includes/default"
+    values:
+      partial: "default"
+  - 
+    scope:
+      path: "_sass"
+    values:
+      partial-css: true
+
+
+
+# githubpage上支持的插件见<https://pages.github.com/versions/>
+plugins: # <https://jekyllrb.com/docs/plugins/>
+  - jekyll-readme-index # 使用readme做index，从而和github渲染效果一致
+  - jekyll-default-layout # 为每个markdown自动生成layout
+  - jekyll-seo-tag # 为每个页面生成标题
+  - jekyll-sitemap # 为站点生成站点地图
+  - jekyll-feed # 为站点生成RSS源
+  - jekyll-redirect-from # 站点页面重定向
+  - jekyll-remote-theme # 使用remote_theme插件实现主题的前后分离，详见<https://github.com/benbalter/jekyll-remote-theme/>
+
+
+# ******************************************************
+# ********* 以下是__config.xml文件的一些参数（https://juejin.cn/post/6844903629246169096）
+# 配置文件中不要使用tab键，使用空格 
+# jekyll变量 （https://juejin.cn/post/6844903629934084109）
+
+# defaults:          # 指定站点范围的默认值（文件没有配置则使用默认值，否则使用自己的）, defaults包含一个由scope/values对组成的数组，用于定义应为特定文件路径设置哪些默认值，以及可选的文件类型
+# source: DIR        # Jekyll读取文件的文件夹
+# destination: DIR   # Jekyll生成文件的文件夹
+# safe: BOOL         # 禁用自定义插件，并忽略符号链接
+# exclude: [DIR, FILE, ...]    # 在转换过程中排除目录和/或文件。这些排除的文件必须在网站的源目录之内，不能在源目录之外。
+# include: [DIR, FILE, ...]    # 在转换过程中强制包含目录和/或文件。 .htaccess是一个很好的例子，因为默认情况下dotfiles是被排除的。
+# keep_files: [".git", ".svn"] # 默认情况下，当网站构建的时候，<destination>中的内容会被自动的清空。不是被你的网站构建时所创建的文件和文件夹都会被删除。可以在<keep_files>配置指令中指定你希望保留在中的文件和文件夹。
+# timezone: TIMEZONE           # 设置网站生成的时区。这设置了TZ环境变量，Ruby用它来处理时间和日期的创建和操作。IANA时区数据库（https://link.juejin.cn/?target=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FTz_database）中的所有条目均有效，例如，America/New_York。所有可用值都可以在这个列表中找到。在本地机器上运行时，默认时区是你的操作系统设置的时区。但是，当在远程主机/服务器上时，默认时区取决于服务器的设置或位置
+# encoding: utf-8    # 按名称设置文件的编码格式。 缺省值是utf-8，可用的编码可以通过命令ruby -e 'puts Encoding::list.join("\n")'展示
+# layout: FILE       # 指定样式文件（只指定文件名，不带扩展名，必须位于_layouts目录）
+# permalink: FILE    # 指定生成文件的默认路径，默认为/year/month/day/title.html
+# published: BOOL    # 是否发布
+# show_drafts: BOOL  # 是否处理并渲染草稿文章
+# future: BOOL       # 是否发布尚未到达日期的文章或文集
+# unpublished: BOOL  # 是否渲染未公开的文章
+# lsi: BOOL          # 生成相关文章的索引。需要classifier-reborn插件
+# limit_posts: NUM   # 限制解析和发布文章的数量
+# incremental: BOOL  # 启用增量构建的试验功能。增量构建仅重新构建已更改的文章和页面，从而显着改善大型网站的性能，但也可能在某些情况下破坏网站生成
+# profile: BOOL      # 生成Liquid渲染配置文件以帮助你识别性能瓶颈
+# strict_front_matter: BOOL    # 如果页面前端存在YAML语法错误，则会导致构建失败
+
+# port: PORT         # 监听给定的端口号 一般自己搭建服务器使用
+# host: HOSTNAME     # 监听给定的主机名 一般自己搭建服务器使用
+# baseurl: URL       # 从给定的基本网址提供网站
+# detach: BOOL       # 从终端分离服务器 一般自己搭建服务器使用
+# ******************************************************

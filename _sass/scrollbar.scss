@@ -1,0 +1,8 @@
+// 自定义滚动条，仅对Chrome系浏览器生效
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: Gray;
+}

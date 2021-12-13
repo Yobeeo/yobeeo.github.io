@@ -1,0 +1,21 @@
+// 侧边栏放缩修正
+.wrap {
+  transition-property: width,background-size,transform;
+  transition-duration: .3s;
+  transition-timing-function: ease-in-out;
+  display: inline-block;
+  background-size: 100% auto;
+  background-position: 0% 0%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+@media screen and (min-width: 28rem) {
+  .sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
+    width: calc(100% - 14rem);
+    background-size: calc(100% - 14rem) auto;
+    transform: translateX(14rem);
+  }
+  .layout-reverse.sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
+    transform: translateX(0);
+  }
+}

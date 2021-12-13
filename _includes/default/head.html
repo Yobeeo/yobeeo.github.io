@@ -1,0 +1,14 @@
+<head>
+  <title>
+    {{ page.title }} - {{ site.title }}
+  </title>
+  {% comment %}把partial组装到一起{% endcomment %}
+  {% include default/head/meta.html %}
+  {% include default/head/icon_tab.html %}
+  {% include default/head/ref_scripts.html %}
+  {% include default/head/ref_css.html %}
+
+  {% if site.plugins contains 'jekyll-seo-tag' %}
+  {% seo title=false %}
+  {% endif %}
+</head>

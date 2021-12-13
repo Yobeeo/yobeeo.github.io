@@ -1,0 +1,54 @@
+--- 
+layout: default
+---
+
+<!--page样式-->
+{% include  page/page-style.html %}
+
+<!--live2d看板娘-->
+{% if page.settings.live2d.enable %}
+    {% include common/live2d.html %}
+{% endif %}
+<style>
+  @media only print {
+    .pio-container {
+      display: none;
+    }
+  }
+</style>
+<!--不知道masthead是什么东西-->
+{% if page.settings.masthead.enable %}
+<div class="masthead">
+  <div class="container">
+    <h3 class="masthead-title">
+      <a href="{{ site.baseurl }}/" title="Home">{{ site.title }}</a>
+      <small>{{ site.tagline }}</small>
+    </h3>
+  </div>
+</div>
+{% endif %}
+
+<div class="container content">
+    <div class="page">
+      {% if page.settings.title.enable %}
+      <h1 class="page-title">{{ page.title }}</h1>
+      {% endif %}
+      {{ content }}
+    </div>
+  </div>
+
+<!--katex公式-->
+{% if page.settings.katex.enable %}
+    {% include common/katex.html %}
+{% endif %}
+<!--mermaid画图-->
+{% if page.settings.mermaid.enable %}
+    {% include common/mermaid.html %}
+{% endif %}
+<!--不知道prism是什么东西-->
+{% if page.settings.prism.enable %}
+
+{% endif %}
+
+
+
