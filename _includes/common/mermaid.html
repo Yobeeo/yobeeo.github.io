@@ -19,6 +19,7 @@
   src="https://cdn.jsdelivr.net/npm/mermaid@8.13.3/dist/mermaid.min.js"
   async="async"
   onload='
+    mermaid.initialize({startOnLoad:false, theme:"default"});
     for(let x of document.getElementsByClassName("language-mermaid"))
       if(x.nodeName=="CODE")
       {
@@ -26,7 +27,8 @@
         m.classList.add("mermaid");
         m.textContent = x.textContent;
         x.parentNode.insertAdjacentElement("beforebegin", m);
-      }'
+      }
+    mermaid.init(undefined, ".mermaid");'
 ></script>
 <style>
   pre.language-vega-lite,
