@@ -1,0 +1,78 @@
+---
+layout: default
+---
+
+<!--page样式-->
+{% include page/page-style.html %}
+
+<!--live2d看板娘-->
+{% if page.settings.live2d.enable %}
+    {% include common/live2d.html %}
+{% endif %}
+<style>
+  @media only print {
+    .pio-container {
+      display: none;
+    }
+  }
+</style>
+
+<div class="container content">
+    <article class="page">
+      {% if page.settings.title.enable %}
+      <h1 class="page-title">{{ page.title }}</h1>
+      {% endif %}
+
+      <!--文章元信息-->
+      <div class="post-meta">
+        <time datetime="{{ page.date | date_to_xmlschema }}">
+          <i class="fas fa-calendar"></i> {{ page.date | date: "%Y-%m-%d" }}
+        </time>
+        {% if page.categories %}
+          <span class="post-categories">
+            <i class="fas fa-folder"></i>
+            {% for cat in page.categories %}
+              <code>{{ cat }}</code>
+            {% endfor %}
+          </span>
+        {% endif %}
+        {% if page.tags %}
+          <span class="post-tags">
+            <i class="fas fa-tags"></i>
+            {% for tag in page.tags %}
+              <code>{{ tag }}</code>
+            {% endfor %}
+          </span>
+        {% endif %}
+      </div>
+      <hr>
+
+      {{ content }}
+    </article>
+</div>
+
+<!--katex公式-->
+{% if page.settings.katex.enable %}
+    {% include common/katex.html %}
+{% endif %}
+<!--mermaid画图-->
+{% if page.settings.mermaid.enable %}
+    {% include common/mermaid.html %}
+{% endif %}
+
+<style>
+  .post-meta {
+    color: #888;
+    font-size: 0.9em;
+    margin-bottom: 1rem;
+  }
+  .post-meta code {
+    font-size: 0.85em;
+    background: #f0f0f0;
+    padding: 1px 6px;
+    border-radius: 3px;
+  }
+  .post-meta > * {
+    margin-right: 16px;
+  }
+</style>
