@@ -10,6 +10,13 @@
   background-attachment: fixed;
 }
 @media screen and (min-width: 28rem) {
+  // 默认模式：侧边栏打开时正文右移（使用 transform 以匹配 .wrap 的 transition 动画）
+  #sidebar-checkbox:checked ~ .wrap {
+    width: calc(100% - 14rem);
+    background-size: calc(100% - 14rem) auto;
+    transform: translateX(14rem);
+  }
+  // overlay 模式：正文不动，侧边栏覆盖在上
   .sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
     width: calc(100% - 14rem);
     background-size: calc(100% - 14rem) auto;
