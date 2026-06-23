@@ -26,7 +26,7 @@
     let pio = new Paul_Pio({
       "mode": "{{ page.settings.live2d.mode }}",
       "hidden": {{ page.settings.live2d.hidden }},
-      "night": "for(let i=7;i<16;++i)if(document.body.classList.contains(`theme-base-0`+i.toString(16))){document.body.classList.remove(`theme-base-0`+i.toString(16));document.body.classList.add(`theme-base-0`+((i-6)%9+7).toString(16));break}",
+      "night": "(function(){var t=['theme-base-07','theme-base-08','theme-base-09','theme-base-0a','theme-base-0b','theme-base-0c','theme-base-0d','theme-base-0e','theme-base-0f','theme-dark'];for(var i=0;i<10;i++)if(document.body.classList.contains(t[i])){document.body.classList.remove(t[i]);document.body.classList.add(t[(i+1)%10]);break}})()",
       "content": {
         "link": ["https:\/\/jekyll-theme-WuK.wu-kan.cn"],
         "skin": ["换个老婆~"],
