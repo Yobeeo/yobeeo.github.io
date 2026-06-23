@@ -69,13 +69,13 @@
       `/assets/imgs/bg_mashiro.jpg`,
       `/assets/imgs/bg_rem.jpg`
     ];
-    // 10 个主题分别配哪个模型（索引 0~5）
-    window.__themeModelMap = [0, 1, 2, 3, 4, 5, 0, 1, 2, 3];
+    // 9 个主题分别配哪个模型（索引 0~5）
+    window.__themeModelMap = [0, 1, 2, 3, 4, 5, 0, 1, 2];
     window.__nightCallback = function(){
-      var t = [`theme-base-07`,`theme-base-08`,`theme-base-09`,`theme-base-0a`,`theme-base-0b`,`theme-base-0c`,`theme-base-0d`,`theme-base-0e`,`theme-base-0f`,`theme-dark`];
-      for(var i = 0; i < 10; i++){
+      var t = [`theme-base-07`,`theme-base-08`,`theme-base-09`,`theme-base-0a`,`theme-base-0b`,`theme-base-0c`,`theme-base-0d`,`theme-base-0e`,`theme-base-0f`];
+      for(var i = 0; i < 9; i++){
         if(document.body.classList.contains(t[i])){
-          var next = (i + 1) % 10;
+          var next = (i + 1) % 9;
           document.body.classList.remove(t[i]);
           document.body.classList.add(t[next]);
           // 同步切换模型
