@@ -106,12 +106,18 @@ $$
 
 ```mermaid
 graph TD
-    A[开始写文章] --> B{有灵感吗?}
-    B -->|有| C[奋笔疾书]
-    B -->|没有| D[喝杯咖啡]
+    A[开始写文章]
+    B{有灵感吗}
+    C[奋笔疾书]
+    D[喝杯咖啡]
+    E[发布到博客]
+    F[完成]
+    A --> B
+    B -->|有| C
+    B -->|没有| D
     D --> B
-    C --> E[发布到博客]
-    E --> F[🎉 完成!]
+    C --> E
+    E --> F
 ```
 
 ## 时序图
@@ -121,7 +127,6 @@ sequenceDiagram
     participant 读者
     participant 博客
     participant GitHub
-
     读者->>博客: 访问 yobeeo.github.io
     博客->>GitHub: Jekyll 构建
     GitHub-->>博客: 生成静态页面
