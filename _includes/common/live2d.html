@@ -2,6 +2,18 @@
 <!-- 预加载 Cubism Core SDK，oh-my-live2d 缺少这个 WASM -->
 <script src="https://cdn.jsdelivr.net/npm/live2dcubismcore@1.0.2/live2dcubismcore.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/oh-my-live2d/dist/index.min.js"></script>
+<!-- 按钮 + 弹框颜色跟随主题 -->
+<style>
+  [id*="switch-theme"] {
+    background: var(--link, #e64980) !important;
+    border-color: var(--link, #e64980) !important;
+  }
+  .oml2d-tips {
+    background: var(--bg, #fff) !important;
+    color: var(--text, #303030) !important;
+    border-color: var(--link, #e64980) !important;
+  }
+</style>
 <script>
   (function() {
     var themes = [
@@ -20,12 +32,6 @@
       'sagiri','grizzly','shield','kobayaxi',
       'mashiro','rem','katou','lafei','chuixue'
     ];
-    // 每个主题对应的按钮颜色（匹配 Lanyon 侧边栏）
-    var themeColors = [
-      '#1e2233', '#ac4142', '#d28445',
-      '#f4bf75', '#90a959', '#75b5aa',
-      '#6a9fb5', '#aa759f', '#8f5536'
-    ];
 
     function switchTheme(oml2d) {
       var body = document.body;
@@ -37,12 +43,6 @@
           oml2d.loadModelByIndex(next);
           var siteBg = document.querySelector('.site-bg');
           if (siteBg) siteBg.style.backgroundImage = 'url(' + modelBgs[next] + ')';
-          // 更新按钮颜色
-          var btns = document.querySelectorAll('[id*="switch-theme"]');
-          for (var j = 0; j < btns.length; j++) {
-            btns[j].style.background = themeColors[next];
-            btns[j].style.borderColor = themeColors[next];
-          }
           break;
         }
       }
@@ -63,8 +63,6 @@
         { name: 'dujiaoshou', path: "{{ '/assets/res/live2d/dujiaoshou_4/dujiaoshou_4.model3.json' | relative_url }}", scale: 0.12, position: [0, 50] }
       ],
       menus: {
-        style: { background: '#333', borderColor: '#e64980' },
-        itemStyle: { color: '#fff', background: '#e64980' },
         items: function(defaultItems) {
           return [{
             id: 'switch-theme',
@@ -105,14 +103,6 @@
       for (var i = 0; i < themes.length; i++) {
         if (body.classList.contains(themes[i])) {
           if (i !== 0) oml2d.loadModelByIndex(i);
-          // 初始按钮颜色
-          setTimeout(function(){
-            var btns = document.querySelectorAll('[id*="switch-theme"]');
-            for (var j = 0; j < btns.length; j++) {
-              btns[j].style.background = themeColors[i];
-              btns[j].style.borderColor = themeColors[i];
-            }
-          }, 500);
           break;
         }
       }
