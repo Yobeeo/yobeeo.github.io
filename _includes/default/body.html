@@ -5,6 +5,8 @@
              {% if page.settings.body.sidebar-overlay %}
                sidebar-overlay
              {% endif %}">
+    <!--固定背景层，不受 transform 影响-->
+    <div class="site-bg"></div>
     <!--侧边栏-->
     {% if page.settings.sidebar.enable %}
         {% include default/body/sidebar.html %}
