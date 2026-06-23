@@ -8,6 +8,24 @@
   .pio-skin,
   .pio-info,
   .pio-close { display: none !important; }
+  .pio-dialog { display: none !important; }
+  .pio-night {
+    position: relative;
+  }
+  .pio-night:hover::after {
+    content: "キミのためなら、何度でも変わるよ~";
+    position: absolute;
+    right: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
+    background: rgba(0,0,0,0.75);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    z-index: 99;
+  }
 </style>
 
 <script
