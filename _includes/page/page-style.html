@@ -24,6 +24,11 @@
 
 <!--多主题正文配色：通过 CSS 变量定义每个主题的正文区颜色-->
 <style>
+  body {
+    --bg:#ffffff; --text:#303030; --link:#268bd2;
+    --code-bg:#f4f4f4; --code-text:#d63384;
+    --border:#e1e4e8; --quote:#6a737d;
+  }
   body.theme-base-07 { --bg:#ffffff; --text:#303030; --link:#268bd2; --code-bg:#f4f4f4; --code-text:#d63384; --border:#e1e4e8; --quote:#6a737d; }
   body.theme-base-08 { --bg:#fefcfc; --text:#2d1e1e; --link:#cc342d; --code-bg:#fef0f0; --code-text:#cc342d; --border:#f0d0d0; --quote:#8b5555; }
   body.theme-base-09 { --bg:#fefaf6; --text:#2d241e; --link:#d28400; --code-bg:#fef6e8; --code-text:#b8700a; --border:#f0d8b0; --quote:#8b6d44; }
@@ -38,23 +43,23 @@
 <!--应用主题变量到正文区域-->
 <style>
   .wrap {
-    background-color: var(--bg);
+    background-color: var(--bg, #ffffff);
   }
   .container.content {
     padding: 2rem;
     box-shadow: 0 0 2rem rgba(255,255,255,0.9);
-    background: var(--bg);
-    color: var(--text);
+    background-color: var(--bg, #ffffff);
+    color: var(--text, #303030);
     animation-duration: 2s;
     animation-name: fadeIn;
   }
-  a { color: var(--link); }
-  a:hover { color: var(--link); opacity: 0.8; }
-  code { background: var(--code-bg); color: var(--code-text); }
-  pre { background: var(--code-bg); }
-  table, th, td { border-color: var(--border); }
-  hr { border-color: var(--border); }
-  blockquote { border-left-color: var(--link); color: var(--quote); }
+  a { color: var(--link, #268bd2); }
+  a:hover { color: var(--link, #268bd2); opacity: 0.8; }
+  code { background: var(--code-bg, #f4f4f4); color: var(--code-text, #d63384); }
+  pre { background: var(--code-bg, #f4f4f4); }
+  table, th, td { border-color: var(--border, #e1e4e8); }
+  hr { border-color: var(--border, #e1e4e8); }
+  blockquote { border-left-color: var(--link, #268bd2); color: var(--quote, #6a737d); }
 
   @keyframes fadeIn {
     from { opacity: 0; }
