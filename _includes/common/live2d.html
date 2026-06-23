@@ -21,51 +21,20 @@
       '/assets/imgs/bg_katou.jpg','/assets/imgs/bg_lafei.jpg',
       '/assets/imgs/bg_chuixue.jpg'
     ];
-    var modelNames = [
-      'sagiri','grizzly','shield','kobayaxi',
-      'mashiro','rem','katou','lafei','chuixue'
-    ];
-
-    function getCurrentThemeIndex() {
-      for (var i = 0; i < themes.length; i++) {
-        if (document.body.classList.contains(themes[i])) return i;
-      }
-      return 0;
-    }
-
-    function applyLive2dColors() {
-      var idx = getCurrentThemeIndex();
-      var color = sidebarColors[idx];
-      // 菜单按钮
-      var menuBtn = document.querySelector('[id*="switch-theme"]');
-      if (menuBtn) {
-        menuBtn.style.setProperty('background', color, 'important');
-        menuBtn.style.setProperty('border-color', color, 'important');
-        menuBtn.style.setProperty('color', '#fff', 'important');
-      }
-      // 文字弹框
-      var tipsEl = document.getElementById('oml2d-tips-content');
-      if (tipsEl) {
-        tipsEl.style.setProperty('background', color, 'important');
-        tipsEl.style.setProperty('color', '#fff', 'important');
-      }
-    }
-
-    // MutationObserver: 监听 oh-my-live2d 动态创建的元素
-    var observer = new MutationObserver(function() {
-      applyLive2dColors();
-    });
-    observer.observe(document.body, { childList: true, subtree: true, attributes: true });
 
     function switchTheme(oml2d) {
-      var idx = getCurrentThemeIndex();
-      var next = (idx + 1) % themes.length;
-      document.body.classList.remove(themes[idx]);
-      document.body.classList.add(themes[next]);
-      oml2d.loadModelByIndex(next);
-      var siteBg = document.querySelector('.site-bg');
-      if (siteBg) siteBg.style.backgroundImage = 'url(' + modelBgs[next] + ')';
-      setTimeout(applyLive2dColors, 200);
+      var body = document.body;
+      for (var i = 0; i < themes.length; i++) {
+        if (body.classList.contains(themes[i])) {
+          var next = (i + 1) % themes.length;
+          body.classList.remove(themes[i]);
+          body.classList.add(themes[next]);
+          oml2d.loadModelByIndex(next);
+          var siteBg = document.querySelector('.site-bg');
+          if (siteBg) siteBg.style.backgroundImage = 'url(' + modelBgs[next] + ')';
+          break;
+        }
+      }
     }
 
     window.OML2D.loadOml2d({
@@ -82,40 +51,50 @@
         { name: 'chuixue',    path: "{{ '/assets/res/live2d/chuixue_3/chuixue_3.model3.json' | relative_url }}", scale: 0.12, position: [0, 50] },
         { name: 'dujiaoshou', path: "{{ '/assets/res/live2d/dujiaoshou_4/dujiaoshou_4.model3.json' | relative_url }}", scale: 0.12, position: [0, 50] }
       ],
-      menus: {
-        items: function(defaultItems) {
-          return [{
+      menus: function(currentModel, modelIndex) {
+        return {
+          itemStyle: {
+            background: sidebarColors[modelIndex],
+            borderColor: sidebarColors[modelIndex],
+            color: '#fff'
+          },
+          items: [{
             id: 'switch-theme',
             title: 'キミのためなら、何度でも変わるよ~',
             onClick: switchTheme
-          }];
-        }
+          }]
+        };
       },
-      tips: {
-        welcomeTips: {
-          message: {
-            daybreak: '早上好！一日之计在于晨~',
-            morning: '上午好！工作顺利嘛，不要久坐哦~',
-            noon: '中午了，现在是午餐时间！',
-            afternoon: '午后容易犯困呢，来杯咖啡吧~',
-            dusk: '傍晚了！今天过得怎么样？',
-            night: '晚上好呀~',
-            lateNight: '很晚了呢，早点休息吧~',
-            weeHours: '这么晚还不睡？当心熬夜秃头哦！'
+      tips: function(currentModel, modelIndex) {
+        return {
+          style: {
+            background: sidebarColors[modelIndex],
+            color: '#fff'
+          },
+          welcomeTips: {
+            message: {
+              daybreak: '早上好！一日之计在于晨~',
+              morning: '上午好！工作顺利嘛，不要久坐哦~',
+              noon: '中午了，现在是午餐时间！',
+              afternoon: '午后容易犯困呢，来杯咖啡吧~',
+              dusk: '傍晚了！今天过得怎么样？',
+              night: '晚上好呀~',
+              lateNight: '很晚了呢，早点休息吧~',
+              weeHours: '这么晚还不睡？当心熬夜秃头哦！'
+            }
+          },
+          idleTips: {
+            interval: 15000,
+            message: [
+              'キミのためなら、何度でも変わるよ~',
+              '有什么想对我说的吗？',
+              '今天写了几行代码呀？',
+              '要不要换一个主题试试看？',
+              '记得 star 我的 GitHub 哦~'
+            ]
           }
-        },
-        idleTips: {
-          interval: 15000,
-          message: [
-            'キミのためなら、何度でも変わるよ~',
-            '有什么想对我说的吗？',
-            '今天写了几行代码呀？',
-            '要不要换一个主题试试看？',
-            '记得 star 我的 GitHub 哦~'
-          ]
-        }
+        };
       },
-      primaryColor: '#e64980',
       sayHello: false
     }).then(function(oml2d) {
       var body = document.body;
@@ -125,8 +104,6 @@
           break;
         }
       }
-      setTimeout(applyLive2dColors, 500);
-      setTimeout(applyLive2dColors, 1500);
     });
   })();
 </script>
