@@ -3,128 +3,24 @@
 <script src="https://cdn.jsdelivr.net/npm/live2dcubismcore@1.0.2/live2dcubismcore.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/oh-my-live2d/dist/index.min.js"></script>
 <style>
-  body.theme-base-07 [id*="switch-theme"],
-  body.theme-base-07 #oml2d-tips-content { background: #202020 !important; }
-  body.theme-base-08 [id*="switch-theme"],
-  body.theme-base-08 #oml2d-tips-content { background: #ac4142 !important; }
-  body.theme-base-09 [id*="switch-theme"],
-  body.theme-base-09 #oml2d-tips-content { background: #d28445 !important; }
-  body.theme-base-0a [id*="switch-theme"],
-  body.theme-base-0a #oml2d-tips-content { background: #f4bf75 !important; }
-  body.theme-base-0b [id*="switch-theme"],
-  body.theme-base-0b #oml2d-tips-content { background: #90a959 !important; }
-  body.theme-base-0c [id*="switch-theme"],
-  body.theme-base-0c #oml2d-tips-content { background: #75b5aa !important; }
-  body.theme-base-0d [id*="switch-theme"],
-  body.theme-base-0d #oml2d-tips-content { background: #6a9fb5 !important; }
-  body.theme-base-0e [id*="switch-theme"],
-  body.theme-base-0e #oml2d-tips-content { background: #aa759f !important; }
-  body.theme-base-0f [id*="switch-theme"],
-  body.theme-base-0f #oml2d-tips-content { background: #fda7b8 !important; }
-  [id*="switch-theme"], #oml2d-tips-content { color: #fff !important; }
+  body.theme-base-07 #switch-theme,
+  body.theme-base-07 .oml2d-tips { background: #202020 !important; }
+  body.theme-base-08 #switch-theme,
+  body.theme-base-08 .oml2d-tips { background: #ac4142 !important; }
+  body.theme-base-09 #switch-theme,
+  body.theme-base-09 .oml2d-tips { background: #d28445 !important; }
+  body.theme-base-0a #switch-theme,
+  body.theme-base-0a .oml2d-tips { background: #f4bf75 !important; }
+  body.theme-base-0b #switch-theme,
+  body.theme-base-0b .oml2d-tips { background: #90a959 !important; }
+  body.theme-base-0c #switch-theme,
+  body.theme-base-0c .oml2d-tips { background: #75b5aa !important; }
+  body.theme-base-0d #switch-theme,
+  body.theme-base-0d .oml2d-tips { background: #6a9fb5 !important; }
+  body.theme-base-0e #switch-theme,
+  body.theme-base-0e .oml2d-tips { background: #aa759f !important; }
+  body.theme-base-0f #switch-theme,
+  body.theme-base-0f .oml2d-tips { background: #fda7b8 !important; }
+  #switch-theme, .oml2d-tips { color: #fff !important; }
 </style>
 <script>
-  (function() {
-    var themes = [
-      'theme-base-07','theme-base-08','theme-base-09',
-      'theme-base-0a','theme-base-0b','theme-base-0c',
-      'theme-base-0d','theme-base-0e','theme-base-0f'
-    ];
-    var sidebarColors = [
-      '#202020','#ac4142','#d28445',
-      '#f4bf75','#90a959','#75b5aa',
-      '#6a9fb5','#aa759f','#fda7b8'
-    ];
-    var modelBgs = [
-      '/assets/imgs/bg_sagiri.jpg','/assets/imgs/bg_grizzly.jpg',
-      '/assets/imgs/bg_shield.jpg','/assets/imgs/bg_kobayaxi.jpg',
-      '/assets/imgs/bg_mashiro.jpg','/assets/imgs/bg_rem.jpg',
-      '/assets/imgs/bg_katou.jpg','/assets/imgs/bg_lafei.jpg',
-      '/assets/imgs/bg_chuixue.jpg'
-    ];
-
-    function switchTheme(oml2d) {
-      var body = document.body;
-      for (var i = 0; i < themes.length; i++) {
-        if (body.classList.contains(themes[i])) {
-          var next = (i + 1) % themes.length;
-          body.classList.remove(themes[i]);
-          body.classList.add(themes[next]);
-          oml2d.loadModelByIndex(next);
-          var siteBg = document.querySelector('.site-bg');
-          if (siteBg) siteBg.style.backgroundImage = 'url(' + modelBgs[next] + ')';
-          break;
-        }
-      }
-    }
-
-    window.OML2D.loadOml2d({
-      dockedPosition: '{{ page.settings.live2d.position }}',
-      models: [
-        { name: 'sagiri',     path: "{{ '/assets/res/live2d/sagiri/model.json' | relative_url }}", scale: 0.12, position: [0, 50] },
-        { name: 'grizzly',    path: "{{ '/assets/res/live2d/grizzly_2102/model.json' | relative_url }}", scale: 0.12, position: [0, 50] },
-        { name: 'shield',     path: "{{ '/assets/res/live2d/shield/model1.json' | relative_url }}", scale: 0.12, position: [0, 50] },
-        { name: 'kobayaxi',   path: "{{ '/assets/res/live2d/kobayaxi/Kobayaxi.model.json' | relative_url }}", scale: 0.12, position: [0, 50] },
-        { name: 'mashiro',    path: "{{ '/assets/res/live2d/mashiro/seifuku.model.json' | relative_url }}", scale: 0.12, position: [0, 50] },
-        { name: 'rem',        path: "{{ '/assets/res/live2d/rem/model.json' | relative_url }}", scale: 0.12, position: [0, 50] },
-        { name: 'katou',      path: "{{ '/assets/res/live2d/katou_01/katou_01.model.json' | relative_url }}", scale: 0.12, position: [0, 50] },
-        { name: 'lafei',      path: "{{ '/assets/res/live2d/lafei_4/lafei_4.model3.json' | relative_url }}", scale: 0.12, position: [0, 50] },
-        { name: 'chuixue',    path: "{{ '/assets/res/live2d/chuixue_3/chuixue_3.model3.json' | relative_url }}", scale: 0.12, position: [0, 50] },
-        { name: 'dujiaoshou', path: "{{ '/assets/res/live2d/dujiaoshou_4/dujiaoshou_4.model3.json' | relative_url }}", scale: 0.12, position: [0, 50] }
-      ],
-      menus: function(currentModel, modelIndex) {
-        return {
-          itemStyle: {
-            background: sidebarColors[modelIndex],
-            borderColor: sidebarColors[modelIndex],
-            color: '#fff'
-          },
-          items: [{
-            id: 'switch-theme',
-            title: 'キミのためなら、何度でも変わるよ~',
-            onClick: switchTheme
-          }]
-        };
-      },
-      tips: function(currentModel, modelIndex) {
-        return {
-          style: {
-            background: sidebarColors[modelIndex],
-            color: '#fff'
-          },
-          welcomeTips: {
-            message: {
-              daybreak: '早上好！一日之计在于晨~',
-              morning: '上午好！工作顺利嘛，不要久坐哦~',
-              noon: '中午了，现在是午餐时间！',
-              afternoon: '午后容易犯困呢，来杯咖啡吧~',
-              dusk: '傍晚了！今天过得怎么样？',
-              night: '晚上好呀~',
-              lateNight: '很晚了呢，早点休息吧~',
-              weeHours: '这么晚还不睡？当心熬夜秃头哦！'
-            }
-          },
-          idleTips: {
-            interval: 15000,
-            message: [
-              'キミのためなら、何度でも変わるよ~',
-              '有什么想对我说的吗？',
-              '今天写了几行代码呀？',
-              '要不要换一个主题试试看？',
-              '记得 star 我的 GitHub 哦~'
-            ]
-          }
-        };
-      },
-      sayHello: false
-    }).then(function(oml2d) {
-      var body = document.body;
-      for (var i = 0; i < themes.length; i++) {
-        if (body.classList.contains(themes[i])) {
-          if (i !== 0) oml2d.loadModelByIndex(i);
-          break;
-        }
-      }
-    });
-  })();
-</script>
