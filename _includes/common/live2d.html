@@ -2,24 +2,17 @@
 <!-- 预加载 Cubism Core SDK，oh-my-live2d 缺少这个 WASM -->
 <script src="https://cdn.jsdelivr.net/npm/live2dcubismcore@1.0.2/live2dcubismcore.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/oh-my-live2d/dist/index.min.js"></script>
-<!-- 按钮 + 弹框颜色跟随主题 -->
-<style>
-  [id*="switch-theme"] {
-    background: var(--link, #e64980) !important;
-    border-color: var(--link, #e64980) !important;
-    color: #fff !important;
-  }
-  #oml2d-tips-content {
-    background: var(--link, #e64980) !important;
-    color: #fff !important;
-  }
-</style>
 <script>
   (function() {
     var themes = [
       'theme-base-07','theme-base-08','theme-base-09',
       'theme-base-0a','theme-base-0b','theme-base-0c',
       'theme-base-0d','theme-base-0e','theme-base-0f'
+    ];
+    var sidebarColors = [
+      '#1e2233','#ac4142','#d28445',
+      '#c99b3b','#90a959','#75b5aa',
+      '#6a9fb5','#aa759f','#8f5536'
     ];
     var modelBgs = [
       '/assets/imgs/bg_sagiri.jpg','/assets/imgs/bg_grizzly.jpg',
@@ -33,19 +26,46 @@
       'mashiro','rem','katou','lafei','chuixue'
     ];
 
-    function switchTheme(oml2d) {
-      var body = document.body;
+    function getCurrentThemeIndex() {
       for (var i = 0; i < themes.length; i++) {
-        if (body.classList.contains(themes[i])) {
-          var next = (i + 1) % themes.length;
-          body.classList.remove(themes[i]);
-          body.classList.add(themes[next]);
-          oml2d.loadModelByIndex(next);
-          var siteBg = document.querySelector('.site-bg');
-          if (siteBg) siteBg.style.backgroundImage = 'url(' + modelBgs[next] + ')';
-          break;
-        }
+        if (document.body.classList.contains(themes[i])) return i;
       }
+      return 0;
+    }
+
+    function applyLive2dColors() {
+      var idx = getCurrentThemeIndex();
+      var color = sidebarColors[idx];
+      // 菜单按钮
+      var menuBtn = document.querySelector('[id*="switch-theme"]');
+      if (menuBtn) {
+        menuBtn.style.setProperty('background', color, 'important');
+        menuBtn.style.setProperty('border-color', color, 'important');
+        menuBtn.style.setProperty('color', '#fff', 'important');
+      }
+      // 文字弹框
+      var tipsEl = document.getElementById('oml2d-tips-content');
+      if (tipsEl) {
+        tipsEl.style.setProperty('background', color, 'important');
+        tipsEl.style.setProperty('color', '#fff', 'important');
+      }
+    }
+
+    // MutationObserver: 监听 oh-my-live2d 动态创建的元素
+    var observer = new MutationObserver(function() {
+      applyLive2dColors();
+    });
+    observer.observe(document.body, { childList: true, subtree: true, attributes: true });
+
+    function switchTheme(oml2d) {
+      var idx = getCurrentThemeIndex();
+      var next = (idx + 1) % themes.length;
+      document.body.classList.remove(themes[idx]);
+      document.body.classList.add(themes[next]);
+      oml2d.loadModelByIndex(next);
+      var siteBg = document.querySelector('.site-bg');
+      if (siteBg) siteBg.style.backgroundImage = 'url(' + modelBgs[next] + ')';
+      setTimeout(applyLive2dColors, 200);
     }
 
     window.OML2D.loadOml2d({
@@ -98,7 +118,6 @@
       primaryColor: '#e64980',
       sayHello: false
     }).then(function(oml2d) {
-      // 初始加载: 匹配当前主题
       var body = document.body;
       for (var i = 0; i < themes.length; i++) {
         if (body.classList.contains(themes[i])) {
@@ -106,6 +125,8 @@
           break;
         }
       }
+      setTimeout(applyLive2dColors, 500);
+      setTimeout(applyLive2dColors, 1500);
     });
   })();
 </script>
