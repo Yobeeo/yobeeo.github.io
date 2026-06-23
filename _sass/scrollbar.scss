@@ -9,9 +9,10 @@
 
 // 侧边栏不显示滚动条，保持干净
 .sidebar::-webkit-scrollbar {
-  width: 0;
-  background: transparent;
+  width: 0 !important;
+  display: none;
 }
 .sidebar {
   scrollbar-width: none;
+  -ms-overflow-style: none;
 }
