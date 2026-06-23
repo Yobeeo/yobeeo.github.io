@@ -6,3 +6,12 @@
 ::-webkit-scrollbar-thumb {
   background-color: Gray;
 }
+
+// 侧边栏不显示滚动条，保持干净
+.sidebar::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+.sidebar {
+  scrollbar-width: none;
+}
