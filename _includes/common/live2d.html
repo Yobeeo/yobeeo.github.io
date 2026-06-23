@@ -71,6 +71,21 @@
     ];
     // 9 个主题分别配哪个模型（索引 0~5）
     window.__themeModelMap = [0, 1, 2, 3, 4, 5, 0, 1, 2];
+    window.__modelPaths = [
+      "{{ "/assets/res/live2d/sagiri/model.json" | relative_url }}",
+      "{{ "/assets/res/live2d/grizzly_2102/model.json" | relative_url }}",
+      "{{ "/assets/res/live2d/shield/model1.json" | relative_url }}",
+      "{{ "/assets/res/live2d/kobayaxi/Kobayaxi.model.json" | relative_url }}",
+      "{{ "/assets/res/live2d/mashiro/seifuku.model.json" | relative_url }}",
+      "{{ "/assets/res/live2d/rem/model.json" | relative_url }}"
+    ];
+    window.__currentModel = 0;
+    window.__switchModel = function(idx){
+      if(typeof loadlive2d === `function`){
+        loadlive2d(`pio`, window.__modelPaths[idx]);
+        window.__currentModel = idx;
+      }
+    };
     window.__nightCallback = function(){
       var t = [`theme-base-07`,`theme-base-08`,`theme-base-09`,`theme-base-0a`,`theme-base-0b`,`theme-base-0c`,`theme-base-0d`,`theme-base-0e`,`theme-base-0f`];
       for(var i = 0; i < 9; i++){
@@ -80,9 +95,7 @@
           document.body.classList.add(t[next]);
           // 同步切换模型
           var mIdx = window.__themeModelMap[next];
-          if(window.__pio){
-            try { window.__pio.loadModel(mIdx); } catch(e){}
-          }
+          window.__switchModel(mIdx);
           // 同步切换背景
           var siteBg = document.querySelector(`.site-bg`);
           if(siteBg) siteBg.style.backgroundImage = `url(${window.__modelBgs[mIdx]})`;
