@@ -1,5 +1,5 @@
 port: 8080
-url: http://localhost:8080 # the base hostname & protocol for your site, e.g. http://example.com
+url: https://yobeeo.github.io # the base hostname & protocol for your site, e.g. http://example.com
 baseurl: "" # the subpath of your site, e.g. /blog
 title: "Yobeeo's Blog" # the name of your site, e.g. ACME Corp.
 exclude: ["Gemfile", "Gemfile.lock", "node_modules", "vendor/bundle/", "vendor/cache/", "vendor/gems/", "vendor/ruby/", "/_includes/partial_html"]
