@@ -2,6 +2,27 @@
 <!-- 预加载 Cubism Core SDK，oh-my-live2d 缺少这个 WASM -->
 <script src="https://cdn.jsdelivr.net/npm/live2dcubismcore@1.0.2/live2dcubismcore.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/oh-my-live2d/dist/index.min.js"></script>
+<style>
+  body.theme-base-07 [id*="switch-theme"],
+  body.theme-base-07 #oml2d-tips-content { background: #202020 !important; }
+  body.theme-base-08 [id*="switch-theme"],
+  body.theme-base-08 #oml2d-tips-content { background: #ac4142 !important; }
+  body.theme-base-09 [id*="switch-theme"],
+  body.theme-base-09 #oml2d-tips-content { background: #d28445 !important; }
+  body.theme-base-0a [id*="switch-theme"],
+  body.theme-base-0a #oml2d-tips-content { background: #f4bf75 !important; }
+  body.theme-base-0b [id*="switch-theme"],
+  body.theme-base-0b #oml2d-tips-content { background: #90a959 !important; }
+  body.theme-base-0c [id*="switch-theme"],
+  body.theme-base-0c #oml2d-tips-content { background: #75b5aa !important; }
+  body.theme-base-0d [id*="switch-theme"],
+  body.theme-base-0d #oml2d-tips-content { background: #6a9fb5 !important; }
+  body.theme-base-0e [id*="switch-theme"],
+  body.theme-base-0e #oml2d-tips-content { background: #aa759f !important; }
+  body.theme-base-0f [id*="switch-theme"],
+  body.theme-base-0f #oml2d-tips-content { background: #fda7b8 !important; }
+  [id*="switch-theme"], #oml2d-tips-content { color: #fff !important; }
+</style>
 <script>
   (function() {
     var themes = [
@@ -10,9 +31,9 @@
       'theme-base-0d','theme-base-0e','theme-base-0f'
     ];
     var sidebarColors = [
-      '#1e2233','#ac4142','#d28445',
-      '#c99b3b','#90a959','#75b5aa',
-      '#6a9fb5','#aa759f','#8f5536'
+      '#202020','#ac4142','#d28445',
+      '#f4bf75','#90a959','#75b5aa',
+      '#6a9fb5','#aa759f','#fda7b8'
     ];
     var modelBgs = [
       '/assets/imgs/bg_sagiri.jpg','/assets/imgs/bg_grizzly.jpg',
@@ -104,18 +125,6 @@
           break;
         }
       }
-      // 每次模型加载成功后更新按钮和弹框颜色
-      oml2d.onLoad(function(status) {
-        if (status === 'success') {
-          var c = sidebarColors[oml2d.modelIndex % sidebarColors.length];
-          setTimeout(function() {
-            var btn = document.querySelector('[id*="switch-theme"]');
-            if (btn) btn.style.cssText = 'background:' + c + '!important;border-color:' + c + '!important;color:#fff!important';
-            var tip = document.getElementById('oml2d-tips-content');
-            if (tip) tip.style.cssText = 'background:' + c + '!important;color:#fff!important';
-          }, 100);
-        }
-      });
     });
   })();
 </script>
