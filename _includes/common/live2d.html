@@ -104,6 +104,18 @@
           break;
         }
       }
+      // 每次模型加载成功后更新按钮和弹框颜色
+      oml2d.onLoad(function(status) {
+        if (status === 'success') {
+          var c = sidebarColors[oml2d.modelIndex % sidebarColors.length];
+          setTimeout(function() {
+            var btn = document.querySelector('[id*="switch-theme"]');
+            if (btn) btn.style.cssText = 'background:' + c + '!important;border-color:' + c + '!important;color:#fff!important';
+            var tip = document.getElementById('oml2d-tips-content');
+            if (tip) tip.style.cssText = 'background:' + c + '!important;color:#fff!important';
+          }, 100);
+        }
+      });
     });
   })();
 </script>
