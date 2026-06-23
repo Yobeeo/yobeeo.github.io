@@ -54,5 +54,26 @@
       "model": [
       "{{ "/assets/res/live2d/sagiri/model.json" | relative_url }}",
         "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/mashiro/seifuku.model.json"]
-    });'
+    });
+    // 换 Live2D 角色时同步切换背景图
+    setTimeout(function(){
+      var bgIdx = 0;
+      var bgs = [
+        `/assets/imgs/bg_sagiri.jpg`,
+        `/assets/imgs/bg_mashiro.jpg`
+      ];
+      var check = setInterval(function(){
+        var btn = document.querySelector(`.pio-skin`);
+        if(btn && !btn.dataset.bgHooked){
+          btn.dataset.bgHooked = `1`;
+          btn.addEventListener(`click`, function(){
+            bgIdx = (bgIdx + 1) % bgs.length;
+            var siteBg = document.querySelector(`.site-bg`);
+            if(siteBg) siteBg.style.backgroundImage = `url(${bgs[bgIdx]})`;
+          });
+          clearInterval(check);
+        }
+      }, 300);
+    }, 800);
+'
 ></script>
