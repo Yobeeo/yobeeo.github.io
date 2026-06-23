@@ -53,6 +53,9 @@
       },
       "model": [
       "{{ "/assets/res/live2d/sagiri/model.json" | relative_url }}",
+        "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/dollsfrontline/grizzly_2102/normal/model.json",
+        "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/dollsfrontline/shield/model1.json",
+        "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/Kobayaxi/Kobayaxi.model.json",
         "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/mashiro/seifuku.model.json"]
     });
     // 换 Live2D 角色时同步切换背景图
@@ -60,6 +63,9 @@
       var bgIdx = 0;
       var bgs = [
         `/assets/imgs/bg_sagiri.jpg`,
+        `/assets/imgs/bg_grizzly.jpg`,
+        `/assets/imgs/bg_shield.jpg`,
+        `/assets/imgs/bg_kobayaxi.jpg`,
         `/assets/imgs/bg_mashiro.jpg`
       ];
       var check = setInterval(function(){
