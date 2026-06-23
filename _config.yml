@@ -33,14 +33,14 @@ defaults:
             content: # 导航部分的内容，你也可以自己增加文字、图标（来自fontawesome）和对应的链接
               - title: '<i class="fas fa-home fa-fw"></i> 首页'
                 href: /
-              - title: '<i class="fas fa-comments fa-fw"></i> 留言'
-                href: /
               - title: '<i class="fas fa-tags fa-fw"></i> 标签'
-                href: /
+                href: /tags/
               - title: '<i class="fas fa-archive fa-fw"></i> 归档'
-                href: /
+                href: /archive/
+              - title: '<i class="fas fa-comments fa-fw"></i> 留言'
+                href: /comments/
               - title: '<i class="fas fa-coffee fa-fw"></i> 打赏'
-                href: /
+                href: /about/
           toc:
             enable: true
           time:   # 时间信息

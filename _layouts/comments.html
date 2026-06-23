@@ -1,0 +1,13 @@
+---
+layout: page
+---
+{% comment %}
+    留言页，判断导航栏中 comment 是否启用
+{% endcomment %}
+{% for node in page.settings.sidebar.navigate.content %}
+    {% if node.href == "/comments/" %}
+        {{ content }}
+        {% include comments/body.html %}
+    {% break %}
+    {% endif %}
+{% endfor %}
