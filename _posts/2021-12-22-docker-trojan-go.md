@@ -21,9 +21,9 @@ Tags: devOps, 实践
 以下以购买[搬瓦工vps](https://bandwagonhost.com/aff.php?aff=68731)为例：
 
 1. 搬瓦工购买地址：[搬瓦工(https://bandwagonhost.com](https://bandwagonhost.com/aff.php?aff=68731))，网上有优惠券的兑换码，可以搜一下
-2. 搬瓦工还有个地址[搬瓦工(https://bwh81.net)](https://bwh81.net/)，上面访问不了可访问这个，还不清楚有什么区别![](markdowns/pics/devOps/docker_trojan-go/docker_trojan-go_vps_step1.png)
+2. 搬瓦工还有个地址[搬瓦工(https://bwh81.net)](https://bwh81.net/)，上面访问不了可访问这个，还不清楚有什么区别![](/assets/imgs/devOps/docker_trojan-go/docker_trojan-go_vps_step1.png)
     
-3. 购买后vps的ip和ssh端口、初始密码，会通过邮件方式通知，也可以登录web端查看或修改![](markdowns/pics/devOps/docker_trojan-go/docker_trojan-go_vps_step2.png) ![](markdowns/pics/devOps/docker_trojan-go/docker_trojan-go_vps_step3.png)
+3. 购买后vps的ip和ssh端口、初始密码，会通过邮件方式通知，也可以登录web端查看或修改![](/assets/imgs/devOps/docker_trojan-go/docker_trojan-go_vps_step2.png) ![](/assets/imgs/devOps/docker_trojan-go/docker_trojan-go_vps_step3.png)
     
 4. 开防火墙和开放端口
     
@@ -56,7 +56,7 @@ Tags: devOps, 实践
 这里准备了两个网站，freessl.org的xxx.com包含了www解析，而OHTTPS不包含，在申请证书时需注意，是需要包含后面trojan-go绑定的域名的（比如绑定的www.abc.com，使用OHTTPS时就需要明确关联www.abc.com，而不能是abc.com）
 ## freessl.org
 
-1. 为域名准备证ssl证书，可在[freessl.org](https://freessl.org/)申请，跟着步骤点NEXT就可以了，若最后验证选的DNS验证，需要在域名上添加一条CANME解析![](markdowns/pics/devOps/docker_trojan-go/docker_trojan-go_cert.png)
+1. 为域名准备证ssl证书，可在[freessl.org](https://freessl.org/)申请，跟着步骤点NEXT就可以了，若最后验证选的DNS验证，需要在域名上添加一条CANME解析![](/assets/imgs/devOps/docker_trojan-go/docker_trojan-go_cert.png)
     
 
 2. 等待生效，直到freessl.org上的“验证”成功
@@ -209,7 +209,7 @@ exit
 
 # Step10. 配置lskypro
 
-配置了nginx，现在可以连接图床进行配置，浏览器输入`http://你的域名` 正常将出现兰空图床的配置界面![](markdowns/pics/devOps/docker_trojan-go/docker_trojan-go_lsky_step1.png)
+配置了nginx，现在可以连接图床进行配置，浏览器输入`http://你的域名` 正常将出现兰空图床的配置界面![](/assets/imgs/devOps/docker_trojan-go/docker_trojan-go_lsky_step1.png)
 
 
 是的“数据库连接地址”配`mysql`就好了，因为服务在同一个网络下，可通过主机名访问
@@ -355,7 +355,7 @@ docker run -d --restart=always --network trojan-network --name trojan-go -h troj
 
 [客户端](https://github.com/p4gefau1t/trojan-go)有很多，github上有相关介绍 
 
-![](markdowns/pics/devOps/docker_trojan-go/docker_trojan-go_client.png)
+![](/assets/imgs/devOps/docker_trojan-go/docker_trojan-go_client.png)
 
 如果使用Qv2ray可参考这个 [Qv2ray Trojan-go安装配置](https://www.osuix.com/2021/01/12/qv2ray-trojan-go-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE-for-win10-macos/)， 很详细
 
