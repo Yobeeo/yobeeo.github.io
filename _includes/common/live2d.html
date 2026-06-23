@@ -20,6 +20,12 @@
       'sagiri','grizzly','shield','kobayaxi',
       'mashiro','rem','katou','lafei','chuixue'
     ];
+    // 每个主题对应的按钮颜色（匹配 Lanyon 侧边栏）
+    var themeColors = [
+      '#1e2233', '#ac4142', '#d28445',
+      '#f4bf75', '#90a959', '#75b5aa',
+      '#6a9fb5', '#aa759f', '#8f5536'
+    ];
 
     function switchTheme(oml2d) {
       var body = document.body;
@@ -28,11 +34,15 @@
           var next = (i + 1) % themes.length;
           body.classList.remove(themes[i]);
           body.classList.add(themes[next]);
-          // 切换模型
           oml2d.loadModelByIndex(next);
-          // 切换背景
           var siteBg = document.querySelector('.site-bg');
           if (siteBg) siteBg.style.backgroundImage = 'url(' + modelBgs[next] + ')';
+          // 更新按钮颜色
+          var btns = document.querySelectorAll('[id*="switch-theme"]');
+          for (var j = 0; j < btns.length; j++) {
+            btns[j].style.background = themeColors[next];
+            btns[j].style.borderColor = themeColors[next];
+          }
           break;
         }
       }
@@ -95,6 +105,14 @@
       for (var i = 0; i < themes.length; i++) {
         if (body.classList.contains(themes[i])) {
           if (i !== 0) oml2d.loadModelByIndex(i);
+          // 初始按钮颜色
+          setTimeout(function(){
+            var btns = document.querySelectorAll('[id*="switch-theme"]');
+            for (var j = 0; j < btns.length; j++) {
+              btns[j].style.background = themeColors[i];
+              btns[j].style.borderColor = themeColors[i];
+            }
+          }, 500);
           break;
         }
       }
