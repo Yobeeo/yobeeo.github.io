@@ -26,7 +26,7 @@
     let pio = new Paul_Pio({
       "mode": "{{ page.settings.live2d.mode }}",
       "hidden": {{ page.settings.live2d.hidden }},
-      "night": "(function(){var t=[`theme-base-07`,`theme-base-08`,`theme-base-09`,`theme-base-0a`,`theme-base-0b`,`theme-base-0c`,`theme-base-0d`,`theme-base-0e`,`theme-base-0f`,`theme-dark`];for(var i=0;i<10;i++)if(document.body.classList.contains(t[i])){document.body.classList.remove(t[i]);document.body.classList.add(t[(i+1)%10]);break}})()",
+      "night": "window.__nightCallback()",
       "content": {
         "link": ["https:\/\/jekyll-theme-WuK.wu-kan.cn"],
         "skin": ["换个老婆~"],
@@ -59,25 +59,48 @@
         "{{ "/assets/res/live2d/mashiro/seifuku.model.json" | relative_url }}",
         "{{ "/assets/res/live2d/rem/model.json" | relative_url }}"]
     });
-    // 换 Live2D 角色时同步切换背景图
+    // 暴露实例 + 主题/模型/背景配套映射
+    window.__pio = pio;
+    window.__modelBgs = [
+      `/assets/imgs/bg_sagiri.jpg`,
+      `/assets/imgs/bg_grizzly.jpg`,
+      `/assets/imgs/bg_shield.jpg`,
+      `/assets/imgs/bg_kobayaxi.jpg`,
+      `/assets/imgs/bg_mashiro.jpg`,
+      `/assets/imgs/bg_rem.jpg`
+    ];
+    // 10 个主题分别配哪个模型（索引 0~5）
+    window.__themeModelMap = [0, 1, 2, 3, 4, 5, 0, 1, 2, 3];
+    window.__nightCallback = function(){
+      var t = [`theme-base-07`,`theme-base-08`,`theme-base-09`,`theme-base-0a`,`theme-base-0b`,`theme-base-0c`,`theme-base-0d`,`theme-base-0e`,`theme-base-0f`,`theme-dark`];
+      for(var i = 0; i < 10; i++){
+        if(document.body.classList.contains(t[i])){
+          var next = (i + 1) % 10;
+          document.body.classList.remove(t[i]);
+          document.body.classList.add(t[next]);
+          // 同步切换模型
+          var mIdx = window.__themeModelMap[next];
+          if(window.__pio){
+            try { window.__pio.loadModel(mIdx); } catch(e){}
+          }
+          // 同步切换背景
+          var siteBg = document.querySelector(`.site-bg`);
+          if(siteBg) siteBg.style.backgroundImage = `url(${window.__modelBgs[mIdx]})`;
+          break;
+        }
+      }
+    };
+    // 换 Live2D 角色(皮肤按钮)时同步切换背景
     setTimeout(function(){
       var bgIdx = 0;
-      var bgs = [
-        `/assets/imgs/bg_sagiri.jpg`,
-        `/assets/imgs/bg_grizzly.jpg`,
-        `/assets/imgs/bg_shield.jpg`,
-        `/assets/imgs/bg_kobayaxi.jpg`,
-        `/assets/imgs/bg_mashiro.jpg`,
-        `/assets/imgs/bg_rem.jpg`
-      ];
       var check = setInterval(function(){
         var btn = document.querySelector(`.pio-skin`);
         if(btn && !btn.dataset.bgHooked){
           btn.dataset.bgHooked = `1`;
           btn.addEventListener(`click`, function(){
-            bgIdx = (bgIdx + 1) % bgs.length;
+            bgIdx = (bgIdx + 1) % window.__modelBgs.length;
             var siteBg = document.querySelector(`.site-bg`);
-            if(siteBg) siteBg.style.backgroundImage = `url(${bgs[bgIdx]})`;
+            if(siteBg) siteBg.style.backgroundImage = `url(${window.__modelBgs[bgIdx]})`;
           });
           clearInterval(check);
         }
