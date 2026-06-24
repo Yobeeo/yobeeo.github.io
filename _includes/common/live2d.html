@@ -16,10 +16,8 @@
     ];
     var modelBgs = [
       '/assets/imgs/bg_sagiri.jpg','/assets/imgs/bg_grizzly.jpg',
-      '/assets/imgs/bg_shield.jpg','/assets/imgs/bg_kobayaxi.jpg',
-      '/assets/imgs/bg_mashiro.jpg','/assets/imgs/bg_rem.jpg',
-      '/assets/imgs/bg_katou.jpg','/assets/imgs/bg_lafei.jpg',
-      '/assets/imgs/bg_chuixue.jpg'
+      '/assets/imgs/bg_shield.jpg','/assets/imgs/bg_rem.jpg',
+      '/assets/imgs/bg_lafei.jpg','/assets/imgs/bg_chuixue.jpg'
     ];
 
     function switchTheme(oml2d) {
@@ -29,9 +27,17 @@
           var next = (i + 1) % themes.length;
           body.classList.remove(themes[i]);
           body.classList.add(themes[next]);
-          oml2d.loadModelByIndex(next);
+          oml2d.loadModelByIndex(next % oml2d.options.models.length);
           var siteBg = document.querySelector('.site-bg');
-          if (siteBg) siteBg.style.backgroundImage = 'url(' + modelBgs[next] + ')';
+          if (siteBg) siteBg.style.backgroundImage = 'url(' + modelBgs[next % modelBgs.length] + ')';
+          // 按钮 / 弹框 / 状态栏的颜色跟着主题，而不是模型
+          var c = sidebarColors[next];
+          var btn = document.getElementById('switch-theme');
+          if (btn) btn.style.cssText = 'background:' + c + '!important;border-color:' + c + '!important;color:#fff!important';
+          var tip = document.querySelector('.oml2d-tips');
+          if (tip) tip.style.cssText = 'background:' + c + '!important;color:#fff!important';
+          var bar = document.getElementById('oml2d-statusBar');
+          if (bar) bar.style.cssText = 'background:' + c + '!important;color:#fff!important';
           break;
         }
       }
@@ -43,10 +49,7 @@
         { name: 'sagiri',     path: "{{ '/assets/res/live2d/sagiri/model.json' | relative_url }}", scale: 0.12, position: [0, 50] },
         { name: 'grizzly',    path: "{{ '/assets/res/live2d/grizzly_2102/model.json' | relative_url }}", scale: 0.12, position: [0, 50] },
         { name: 'shield',     path: "{{ '/assets/res/live2d/shield/model1.json' | relative_url }}", scale: 0.12, position: [0, 50] },
-        { name: 'kobayaxi',   path: "{{ '/assets/res/live2d/kobayaxi/Kobayaxi.model.json' | relative_url }}", scale: 0.12, position: [0, 50] },
-        { name: 'mashiro',    path: "{{ '/assets/res/live2d/mashiro/seifuku.model.json' | relative_url }}", scale: 0.12, position: [0, 50] },
         { name: 'rem',        path: "{{ '/assets/res/live2d/rem/model.json' | relative_url }}", scale: 0.12, position: [0, 50] },
-        { name: 'katou',      path: "{{ '/assets/res/live2d/katou_01/katou_01.model.json' | relative_url }}", scale: 0.12, position: [0, 50] },
         { name: 'lafei',      path: "{{ '/assets/res/live2d/lafei_4/lafei_4.model3.json' | relative_url }}", scale: 0.12, position: [0, 50] },
         { name: 'chuixue',    path: "{{ '/assets/res/live2d/chuixue_3/chuixue_3.model3.json' | relative_url }}", scale: 0.12, position: [0, 50] },
         { name: 'dujiaoshou', path: "{{ '/assets/res/live2d/dujiaoshou_4/dujiaoshou_4.model3.json' | relative_url }}", scale: 0.12, position: [0, 50] },
@@ -55,8 +58,8 @@
       menus: function(currentModel, modelIndex) {
         return {
           itemStyle: {
-            background: sidebarColors[modelIndex],
-            borderColor: sidebarColors[modelIndex],
+            backgroundColor: sidebarColors[modelIndex % sidebarColors.length],
+            borderColor: sidebarColors[modelIndex % sidebarColors.length],
             color: '#fff'
           },
           items: [{
@@ -101,14 +104,20 @@
       var body = document.body;
       for (var i = 0; i < themes.length; i++) {
         if (body.classList.contains(themes[i])) {
-          if (i !== 0) oml2d.loadModelByIndex(i);
+          if (i !== 0) oml2d.loadModelByIndex(i % oml2d.options.models.length);
           break;
         }
       }
       // 每次模型加载成功后更新按钮和弹框颜色
       oml2d.onLoad(function(status) {
         if (status === 'success') {
-          var c = sidebarColors[oml2d.modelIndex % sidebarColors.length];
+          // 颜色跟着当前主题，而不是模型 mod
+          var body = document.body;
+          var idx = 0;
+          for (var i = 0; i < themes.length; i++) {
+            if (body.classList.contains(themes[i])) { idx = i; break; }
+          }
+          var c = sidebarColors[idx];
           setTimeout(function() {
             var btn = document.getElementById('switch-theme');
             if (btn) btn.style.cssText = 'background:' + c + '!important;border-color:' + c + '!important;color:#fff!important';
