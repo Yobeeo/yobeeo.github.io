@@ -1,5 +1,14 @@
 <!-- Live2D 看板娘 - oh-my-live2d (支持 Cubism 2/3/4) -->
 <!-- 预加载 Cubism Core SDK，oh-my-live2d 缺少这个 WASM -->
+<style>
+  /* 初始隐藏，避免加载瞬间闪烁不匹配的模型 */
+  #oml2d-container, .oml2d-dock {
+    visibility: hidden;
+  }
+  #oml2d-container.ready, .oml2d-dock.ready {
+    visibility: visible;
+  }
+</style>
 <script src="https://cdn.jsdelivr.net/npm/live2dcubismcore@1.0.2/live2dcubismcore.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/oh-my-live2d/dist/index.min.js"></script>
 <script>
@@ -45,6 +54,12 @@
 
     window.OML2D.loadOml2d({
       dockedPosition: '{{ page.settings.live2d.position }}',
+      statusBar: {
+        style: {
+          backgroundColor: 'rgba(0,0,0,0.6)',
+          color: '#fff'
+        }
+      },
       models: [
         { name: 'qbu88',      path: "{{ '/assets/res/live2d/qbu88-3801/normal.model3.json' | relative_url }}", scale: 0.15, position: [0, 50] },
         { name: 'lafei',      path: "{{ '/assets/res/live2d/lafei_4/lafei_4.model3.json' | relative_url }}", scale: 0.09, position: [0, 50] },
@@ -107,10 +122,21 @@
       for (var i = 0; i < themes.length; i++) {
         if (body.classList.contains(themes[i])) {
           themeIdx = i;
-          // 默认加载 models[0]，延迟一帧切换到当前主题对应模型
+          // 默认加载 models[0]，用 setTimeout 延迟切换，避免与 oh-my-live2d 内部初始化竞争
           if (themeIdx !== 0) {
-            requestAnimationFrame(function() {
+            setTimeout(function() {
               oml2d.loadModelByIndex(themeIdx);
+            }, 500);
+            // 模型切换成功后显示容器，避免闪烁
+            oml2d.onLoad(function(status) {
+              if (status === 'success') {
+                var container = document.getElementById('oml2d-container');
+                var dock = document.querySelector('.oml2d-dock');
+                if (container) container.classList.add('ready');
+                if (dock) dock.classList.add('ready');
+                // 只触发一次
+                oml2d.off && oml2d.off('load');
+              }
             });
           }
           break;
