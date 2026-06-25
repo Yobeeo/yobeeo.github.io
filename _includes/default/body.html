@@ -5,10 +5,10 @@
              {% if page.settings.body.sidebar-overlay %}
                sidebar-overlay
              {% endif %}">
-<!-- 页面加载时恢复用户上次选择的主题，避免闪烁默认主题 -->
-<script>(function(){try{var s=localStorage.getItem('oml2d-theme');if(s&&/^theme-base-0[7-9a-f]$/.test(s)){document.body.classList.remove('{{ page.settings.body.theme-base }}');document.body.classList.add(s)}var m={'theme-base-07':'/assets/imgs/bg_black.jpg','theme-base-08':'/assets/imgs/bg_sagiri.jpg','theme-base-09':'/assets/imgs/bg_sagiri.jpg','theme-base-0a':'/assets/imgs/bg_sagiri.jpg','theme-base-0b':'/assets/imgs/bg_nahida.jpg','theme-base-0c':'/assets/imgs/bg_7match.jpg','theme-base-0d':'/assets/imgs/bg_blue.jpg','theme-base-0e':'/assets/imgs/bg_purple.jpg','theme-base-0f':'/assets/imgs/bg_sagiri.jpg'};var b=document.querySelector('.site-bg');if(b&&m[s])b.style.backgroundImage='url('+m[s]+')'}catch(e){}})();</script>
     <!--固定背景层，不受 transform 影响-->
     <div class="site-bg"></div>
+<!-- 页面加载时恢复用户上次选择的主题和背景图 -->
+<script>(function(){try{var s=localStorage.getItem('oml2d-theme');if(s&&/^theme-base-0[7-9a-f]$/.test(s)){document.body.classList.remove('{{ page.settings.body.theme-base }}');document.body.classList.add(s)}var m={'theme-base-07':'/assets/imgs/bg_black.jpg','theme-base-08':'/assets/imgs/bg_sagiri.jpg','theme-base-09':'/assets/imgs/bg_sagiri.jpg','theme-base-0a':'/assets/imgs/bg_sagiri.jpg','theme-base-0b':'/assets/imgs/bg_nahida.jpg','theme-base-0c':'/assets/imgs/bg_7match.jpg','theme-base-0d':'/assets/imgs/bg_blue.jpg','theme-base-0e':'/assets/imgs/bg_purple.jpg','theme-base-0f':'/assets/imgs/bg_sagiri.jpg'};var b=document.querySelector('.site-bg');if(b&&m[s])b.style.backgroundImage='url('+m[s]+')'}catch(e){}})();</script>
     <!--侧边栏-->
     {% if page.settings.sidebar.enable %}
         {% include default/body/sidebar.html %}
