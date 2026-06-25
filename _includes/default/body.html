@@ -5,6 +5,8 @@
              {% if page.settings.body.sidebar-overlay %}
                sidebar-overlay
              {% endif %}">
+<!-- 页面加载时恢复用户上次选择的主题，避免闪烁默认主题 -->
+<script>(function(){try{var s=localStorage.getItem('oml2d-theme');if(s&&/^theme-base-0[7-9a-f]$/.test(s)){document.body.classList.remove('{{ page.settings.body.theme-base }}');document.body.classList.add(s)}}catch(e){}})();</script>
     <!--固定背景层，不受 transform 影响-->
     <div class="site-bg"></div>
     <!--侧边栏-->
