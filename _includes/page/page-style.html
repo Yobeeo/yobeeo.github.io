@@ -61,16 +61,16 @@
     animation-duration: 2s;
     animation-name: fadeIn;
   }
-  /* 每个主题的正文背景色 — 用主题色半透明，兼顾可读性与主题氛围 */
-  body.theme-base-07 .container.content { background: rgba(30,34,51,0.85); box-shadow: 0 0 2rem rgba(0,0,0,0.6); }
-  body.theme-base-08 .container.content { background: rgba(204,52,45,0.12); }
-  body.theme-base-09 .container.content { background: rgba(210,132,0,0.10); }
-  body.theme-base-0a .container.content { background: rgba(139,139,0,0.08); }
-  body.theme-base-0b .container.content { background: rgba(40,167,69,0.10); }
-  body.theme-base-0c .container.content { background: rgba(23,162,184,0.10); }
-  body.theme-base-0d .container.content { background: rgba(34,102,204,0.10); }
-  body.theme-base-0e .container.content { background: rgba(111,66,193,0.10); }
-  body.theme-base-0f .container.content { background: rgba(214,51,132,0.10); }
+  /* 每个主题的正文背景 — 主题色 tint 半透明层，兼顾可读性与主题氛围 */
+  body.theme-base-07 .container.content { background: rgba(30,34,51,0.88); box-shadow: 0 0 2rem rgba(0,0,0,0.6); }
+  body.theme-base-08 .container.content { background: linear-gradient(135deg, rgba(204,52,45,0.15), rgba(254,252,252,0.85)); box-shadow: 0 0 2rem rgba(204,52,45,0.15); }
+  body.theme-base-09 .container.content { background: linear-gradient(135deg, rgba(210,132,0,0.12), rgba(253,250,246,0.88)); box-shadow: 0 0 2rem rgba(210,132,0,0.12); }
+  body.theme-base-0a .container.content { background: linear-gradient(135deg, rgba(139,139,0,0.10), rgba(253,252,246,0.88)); box-shadow: 0 0 2rem rgba(139,139,0,0.10); }
+  body.theme-base-0b .container.content { background: linear-gradient(135deg, rgba(40,167,69,0.12), rgba(246,253,247,0.88)); box-shadow: 0 0 2rem rgba(40,167,69,0.12); }
+  body.theme-base-0c .container.content { background: linear-gradient(135deg, rgba(23,162,184,0.12), rgba(246,253,253,0.88)); box-shadow: 0 0 2rem rgba(23,162,184,0.12); }
+  body.theme-base-0d .container.content { background: linear-gradient(135deg, rgba(34,102,204,0.12), rgba(242,246,251,0.88)); box-shadow: 0 0 2rem rgba(34,102,204,0.12); }
+  body.theme-base-0e .container.content { background: linear-gradient(135deg, rgba(111,66,193,0.12), rgba(250,246,253,0.88)); box-shadow: 0 0 2rem rgba(111,66,193,0.12); }
+  body.theme-base-0f .container.content { background: linear-gradient(135deg, rgba(214,51,132,0.12), rgba(253,246,250,0.88)); box-shadow: 0 0 2rem rgba(214,51,132,0.12); }
   a { color: var(--link, #268bd2); }
   a:hover { color: var(--link, #268bd2); opacity: 0.8; }
   code { background: var(--code-bg, #f4f4f4); color: var(--code-text, #d63384); }
