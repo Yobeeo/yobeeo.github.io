@@ -48,7 +48,7 @@
           var bar = document.getElementById('oml2d-statusBar');
           if (bar) bar.style.cssText = 'background:' + c + '!important;color:#fff!important';
           // 持久化主题选择
-          try { localStorage.setItem('oml2d-theme', String(next)); } catch(e) {}
+          try { localStorage.setItem('oml2d-theme', themes[next]); } catch(e) {}
           break;
         }
       }
