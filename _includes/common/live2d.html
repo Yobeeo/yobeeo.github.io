@@ -103,16 +103,28 @@
       sayHello: false
     }).then(function(oml2d) {
       var body = document.body;
+      var themeIdx = 0;
       for (var i = 0; i < themes.length; i++) {
         if (body.classList.contains(themes[i])) {
+          themeIdx = i;
           if (i !== 0) oml2d.loadModelByIndex(i % oml2d.options.models.length);
           break;
         }
       }
-      // 每次模型加载成功后更新按钮和弹框颜色
+      // 根据当前主题设置初始背景
+      var siteBg = document.querySelector('.site-bg');
+      if (siteBg) siteBg.style.backgroundImage = 'url(' + modelBgs[themeIdx] + ')';
+      // 设置初始按钮/弹框/状态栏颜色
+      var c = sidebarColors[themeIdx];
+      var btn = document.getElementById('switch-theme');
+      if (btn) btn.style.cssText = 'background:' + c + '!important;border-color:' + c + '!important;color:#fff!important';
+      var tip = document.querySelector('.oml2d-tips');
+      if (tip) tip.style.cssText = 'background:' + c + '!important;color:#fff!important';
+      var bar = document.getElementById('oml2d-statusBar');
+      if (bar) bar.style.cssText = 'background:' + c + '!important;color:#fff!important';
+      // 每次模型加载成功后更新颜色（兼容切换模型后的颜色刷新）
       oml2d.onLoad(function(status) {
         if (status === 'success') {
-          // 颜色跟着当前主题，而不是模型 mod
           var body = document.body;
           var idx = 0;
           for (var i = 0; i < themes.length; i++) {
