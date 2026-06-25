@@ -47,10 +47,22 @@
           if (tip) tip.style.cssText = 'background:' + c + '!important;color:#fff!important';
           var bar = document.getElementById('oml2d-statusBar');
           if (bar) bar.style.cssText = 'background:' + c + '!important;color:#fff!important';
+          // 持久化主题选择
+          try { localStorage.setItem('oml2d-theme', String(next)); } catch(e) {}
           break;
         }
       }
     }
+
+    // 页面加载时恢复用户上次选择的主题
+    (function() {
+      var saved = '';
+      try { saved = localStorage.getItem('oml2d-theme'); } catch(e) {}
+      if (saved && themes.indexOf(saved) !== -1) {
+        document.body.classList.remove('theme-base-07');
+        document.body.classList.add(saved);
+      }
+    })();
 
     window.OML2D.loadOml2d({
       dockedPosition: '{{ page.settings.live2d.position }}',
