@@ -2,29 +2,38 @@ port: 8080
 url: https://yobeeo.github.io # the base hostname & protocol for your site, e.g. http://example.com
 baseurl: "" # the subpath of your site, e.g. /blog
 title: "Yobeeo's Blog" # the name of your site, e.g. ACME Corp.
-exclude: ["Gemfile", "Gemfile.lock", "node_modules", "vendor/bundle/", "vendor/cache/", "vendor/gems/", "vendor/ruby/", "/_includes/partial_html"]
+exclude:
+  [
+    "Gemfile",
+    "Gemfile.lock",
+    "node_modules",
+    "vendor/bundle/",
+    "vendor/cache/",
+    "vendor/gems/",
+    "vendor/ruby/",
+    "/_includes/partial_html",
+  ]
 
 repository: Yobeeo/yobeeo.github.io
 
 defaults:
-  -
-    scope:
+  - scope:
       path: ""
     values:
       settings:
         head:
         body:
-          theme-base: theme-base-0e # 可选的主题色包括08~0f，见 <https://github.com/poole/lanyon>
+          theme-base: theme-base-07 # 可选的主题色包括08~0f，见 <https://github.com/poole/lanyon>
           layout-reverse: false # 开启后sidebar在右边，反之左边
           sidebar-overlay: false # 开启后正文不随sidebar移动而移动
-          background-img: /assets/imgs/bg_sagiri.jpg   # 背景图片
+          background-img: /assets/imgs/bg_sagiri.jpg # 背景图片
         sidebar:
           enable: true
-          open: true   # 是否展开
+          open: true # 是否展开
           avatar: # 侧边栏显示的头像
             enable: true
-            img: /assets/imgs/icon.jpg  # 头像地址
-          search:  # 侧边栏全站搜索
+            img: /assets/imgs/icon.jpg # 头像地址
+          search: # 侧边栏全站搜索
             enable: true
             full_text_search: false # 可能导致缓慢的搜索和加载
             default-text: "搜索博文"
@@ -43,51 +52,46 @@ defaults:
                 href: /about/
           toc:
             enable: true
-          time:   # 时间信息
+          time: # 时间信息
             enable: true
             time-point: "12/07/10 00:00:00" # 时间起点
-          statistics:  # 统计信息
+          statistics: # 统计信息
             enable: true
-          other:  # 备案信息等
+          other: # 备案信息等
             enable: false
           wordcount: # 全站字数统计
-            enable: true  # 本地调试时建议关闭，非常影响站点生成速度（所需时间与博文数量的平方成正比）
+            enable: true # 本地调试时建议关闭，非常影响站点生成速度（所需时间与博文数量的平方成正比）
             unit: "字"
             kilo: "k"
         title: # 为每个页面自动生成一个 H1 title
-          enable: true  
+          enable: true
         live2d: # live2d看板娘插件
           enable: true
-          mode: fixed  # static/fixed/draggable
+          mode: fixed # static/fixed/draggable
           hidden: true
-          position: right  # right/left
+          position: right # right/left
           width: 600
           height: 1200
-        katex:   # 公式插件
+        katex: # 公式插件
           enable: true
         mermaid: # 画图插件
           enable: true
-        prism:  # 不知道是什么东西
+        prism: # 不知道是什么东西
           enable: false
         masthead: # 也不知道是什么东西
           enable: false
-  - 
-    scope:
+  - scope:
       path: "_includes"
     values:
       partial-html: true
-  - 
-    scope:
+  - scope:
       path: "_includes/default"
     values:
       partial: "default"
-  - 
-    scope:
+  - scope:
       path: "_sass"
     values:
       partial-css: true
-
-
 
 # githubpage上支持的插件见<https://pages.github.com/versions/>
 plugins: # <https://jekyllrb.com/docs/plugins/>
@@ -102,7 +106,7 @@ plugins: # <https://jekyllrb.com/docs/plugins/>
 
 # ******************************************************
 # ********* 以下是__config.xml文件的一些参数（https://juejin.cn/post/6844903629246169096）
-# 配置文件中不要使用tab键，使用空格 
+# 配置文件中不要使用tab键，使用空格
 # jekyll变量 （https://juejin.cn/post/6844903629934084109）
 
 # defaults:          # 指定站点范围的默认值（文件没有配置则使用默认值，否则使用自己的）, defaults包含一个由scope/values对组成的数组，用于定义应为特定文件路径设置哪些默认值，以及可选的文件类型
