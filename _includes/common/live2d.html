@@ -107,7 +107,12 @@
       for (var i = 0; i < themes.length; i++) {
         if (body.classList.contains(themes[i])) {
           themeIdx = i;
-          oml2d.loadModelByIndex(i % oml2d.options.models.length);
+          // 默认加载 models[0]，延迟一帧切换到当前主题对应模型
+          if (themeIdx !== 0) {
+            requestAnimationFrame(function() {
+              oml2d.loadModelByIndex(themeIdx);
+            });
+          }
           break;
         }
       }
