@@ -107,7 +107,7 @@
       for (var i = 0; i < themes.length; i++) {
         if (body.classList.contains(themes[i])) {
           themeIdx = i;
-          if (i !== 0) oml2d.loadModelByIndex(i % oml2d.options.models.length);
+          oml2d.loadModelByIndex(i % oml2d.options.models.length);
           break;
         }
       }
