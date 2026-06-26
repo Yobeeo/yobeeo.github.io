@@ -47,6 +47,8 @@
           if (tip) tip.style.cssText = 'background:' + c + '!important;color:#fff!important';
           var bar = document.getElementById('oml2d-statusBar');
           if (bar) bar.style.cssText = 'background:' + c + '!important;color:#fff!important';
+          // 更新 statusBar primaryColor 使后续加载提示也使用主题色
+          oml2d.options.primaryColor = c;
           // 持久化主题选择
           try { localStorage.setItem('oml2d-theme', themes[next]); } catch(e) {}
           break;
@@ -71,14 +73,6 @@
         style: {
           backgroundColor: 'rgba(0,0,0,0.6)',
           color: '#fff'
-        },
-        primaryColor: function() {
-          var themes = ['theme-base-07','theme-base-08','theme-base-09','theme-base-0a','theme-base-0b','theme-base-0c','theme-base-0d','theme-base-0e','theme-base-0f'];
-          var colors = ['#202020','#ac4142','#d28445','#f4bf75','#90a959','#75b5aa','#6a9fb5','#aa759f','#fda7b8'];
-          for (var i = 0; i < themes.length; i++) {
-            if (document.body.classList.contains(themes[i])) return colors[i];
-          }
-          return colors[0];
         }
       },
       models: [
@@ -174,6 +168,8 @@
       if (tip) tip.style.cssText = 'background:' + c + '!important;color:#fff!important';
       var bar = document.getElementById('oml2d-statusBar');
       if (bar) bar.style.cssText = 'background:' + c + '!important;color:#fff!important';
+      // 初始化 statusBar primaryColor 使首次加载提示也用主题色
+      oml2d.options.primaryColor = c;
       // 每次模型加载成功后更新颜色（兼容切换模型后的颜色刷新）
       oml2d.onLoad(function(status) {
         if (status === 'success') {
