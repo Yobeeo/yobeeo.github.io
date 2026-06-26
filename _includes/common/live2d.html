@@ -1,17 +1,12 @@
 <!-- Live2D 看板娘 - oh-my-live2d (支持 Cubism 2/3/4) -->
 <!-- 预加载 Cubism Core SDK，oh-my-live2d 缺少这个 WASM -->
 <style>
-  /* 初始隐藏 stage + statusBar，避免加载过程中撑出底部空白 */
-  #oml2d-stage {
-    display: none;
-  }
-  #oml2d-stage.ready {
-    display: block;
-  }
-  /* 初始完全隐藏 statusBar，slide-in 前不可见 */
-  #oml2d-statusBar {
-    transform: translateY(200%) !important;
+  /* 初始隐藏，避免加载瞬间闪烁不匹配的模型 */
+  #oml2d-container, .oml2d-dock {
     visibility: hidden;
+  }
+  #oml2d-container.ready, .oml2d-dock.ready {
+    visibility: visible;
   }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/live2dcubismcore@1.0.2/live2dcubismcore.min.js"></script>
@@ -159,16 +154,18 @@
             setTimeout(function() {
               oml2d.loadModelByIndex(themeIdx);
             }, 500);
+            // 模型切换成功后显示容器，避免闪烁
+            oml2d.onLoad(function(status) {
+              if (status === 'success') {
+                var container = document.getElementById('oml2d-container');
+                var dock = document.querySelector('.oml2d-dock');
+                if (container) container.classList.add('ready');
+                if (dock) dock.classList.add('ready');
+                // 只触发一次
+                oml2d.off && oml2d.off('load');
+              }
+            });
           }
-          // 加载完成后显示容器，避免闪烁
-          oml2d.onLoad(function(status) {
-            if (status === 'success') {
-              var stage = document.getElementById('oml2d-stage');
-              if (stage) stage.style.display = 'block';
-              // 只触发一次
-              oml2d.off && oml2d.off('load');
-            }
-          });
           break;
         }
       }
