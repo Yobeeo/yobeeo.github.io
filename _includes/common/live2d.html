@@ -69,6 +69,16 @@
     window.OML2D.loadOml2d({
       dockedPosition: '{{ page.settings.live2d.position }}',
       mobileDisplay: true,
+      primaryColor: (function() {
+        var saved = '';
+        try { saved = localStorage.getItem('oml2d-theme'); } catch(e) {}
+        var idx = 0;
+        if (saved) {
+          var savedIdx = themes.indexOf(saved);
+          if (savedIdx !== -1) idx = savedIdx;
+        }
+        return sidebarColors[idx];
+      })(),
       statusBar: {
         style: {
           backgroundColor: 'rgba(0,0,0,0.6)',
@@ -170,6 +180,22 @@
       if (bar) bar.style.cssText = 'background:' + c + '!important;color:#fff!important';
       // 初始化 statusBar primaryColor 使首次加载提示也用主题色
       oml2d.options.primaryColor = c;
+      // 修正 statusBar transform 方向，避免与 dockedPosition 不匹配导致横向长条
+      (function fixStatusBarTransform() {
+          var pos = oml2d.options.dockedPosition;
+          var isRight = (pos === 'right');
+          var correctTx = isRight ? 'translateX(110%)' : 'translateX(-110%)';
+          var bar = document.getElementById('oml2d-statusBar');
+          if (bar) bar.style.transform = correctTx;
+          oml2d.onLoad(function(status) {
+              if (status === 'success') {
+                  requestAnimationFrame(function() {
+                      var bar = document.getElementById('oml2d-statusBar');
+                      if (bar) bar.style.transform = correctTx;
+                  });
+              }
+          });
+      })();
       // 每次模型加载成功后更新颜色（兼容切换模型后的颜色刷新）
       oml2d.onLoad(function(status) {
         if (status === 'success') {
