@@ -2,11 +2,15 @@
 <!-- 预加载 Cubism Core SDK，oh-my-live2d 缺少这个 WASM -->
 <style>
   /* 初始隐藏，避免加载瞬间闪烁不匹配的模型 */
-  #oml2d-container, .oml2d-dock {
+  #oml2d-stage, #oml2d-container, .oml2d-dock {
     visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
   }
-  #oml2d-container.ready, .oml2d-dock.ready {
+  #oml2d-stage.ready, #oml2d-container.ready, .oml2d-dock.ready {
     visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
   }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/live2dcubismcore@1.0.2/live2dcubismcore.min.js"></script>
