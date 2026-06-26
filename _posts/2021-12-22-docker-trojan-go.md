@@ -209,7 +209,8 @@ exit
 
 # Step10. 配置lskypro
 
-配置了nginx，现在可以连接图床进行配置，浏览器输入`http://你的域名` 正常将出现兰空图床的配置界面![](/assets/imgs/devOps/docker_trojan-go/docker_trojan-go_lsky_step1.png)
+配置了nginx，现在可以连接图床进行配置，浏览器输入`http://你的域名` 正常将出现兰空图床的配置界面
+![](/assets/imgs/devOps/docker_trojan-go/docker_trojan-go_lsky_step1.png)
 
 
 是的“数据库连接地址”配`mysql`就好了，因为服务在同一个网络下，可通过主机名访问
