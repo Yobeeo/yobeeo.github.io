@@ -144,6 +144,41 @@
       },
       sayHello: false
     }).then(function(oml2d) {
+      // 修复：首次加载时底部空白问题
+      // oh-my-live2d 的 stage 初始 transform 为 translateY(130%)（在视口下方）
+      // loadModel() 完成后才执行 slideIn() 动画滑入视口
+      // 中间这段加载时间里，底部就是空白的
+      // 方案：在初始化完成后立即覆盖 stage.style，把 translateY(130%) 改为 translateY(0)
+      // 这样模型从一开始就在视口内，加载完成后 slideIn 动画从 0%→0% 无视觉变化
+      (function patchStage(){
+        var stageEl = document.getElementById('oml2d-stage');
+        if (stageEl) {
+          // 把初始的 translateY(130%) 改为 translateY(0)，让模型区域始终可见
+          var style = stageEl.getAttribute('style') || '';
+          style = style.replace(/translateY\(130%\)/g, 'translateY(0)');
+          stageEl.setAttribute('style', style);
+        }
+        // 同时也修复 statusBar 的初始位置，避免 loading 时状态栏滑入动画造成闪烁
+        var barEl = document.getElementById('oml2d-statusBar');
+        if (barEl) {
+          var s = barEl.getAttribute('style') || '';
+          // statusBar 初始 transform 可能带 translateX(-110%) 或 translateX(-120%)
+          // 保持原样即可，因为它 position:fixed 不影响文档流
+        }
+      })();
+      // 同时 patch reloadStyle，让后续样式重置也保持 translateY(0)
+      var origReloadStyle = oml2d.stage.reloadStyle;
+      if (origReloadStyle) {
+        oml2d.stage.reloadStyle = function(extra) {
+          origReloadStyle.call(this, extra);
+          var stageEl = document.getElementById('oml2d-stage');
+          if (stageEl) {
+            var style = stageEl.getAttribute('style') || '';
+            style = style.replace(/translateY\(130%\)/g, 'translateY(0)');
+            stageEl.setAttribute('style', style);
+          }
+        };
+      }
       var body = document.body;
       var themeIdx = 0;
       for (var i = 0; i < themes.length; i++) {
