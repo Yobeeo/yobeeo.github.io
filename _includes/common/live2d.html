@@ -180,20 +180,46 @@
       if (bar) bar.style.cssText = 'background:' + c + '!important;color:#fff!important';
       // 初始化 statusBar primaryColor 使首次加载提示也用主题色
       oml2d.options.primaryColor = c;
-      // 修正 statusBar transform 方向，避免与 dockedPosition 不匹配导致横向长条
+      // 修正 statusBar transform 方向，用 MutationObserver 持续拦截 oh-my-live2d 对 style 的修改
       (function fixStatusBarTransform() {
           var pos = oml2d.options.dockedPosition;
-          var isRight = (pos === 'right');
-          var correctTx = isRight ? 'translateX(110%)' : 'translateX(-110%)';
-          var bar = document.getElementById('oml2d-statusBar');
-          if (bar) bar.style.transform = correctTx;
-          oml2d.onLoad(function(status) {
-              if (status === 'success') {
-                  requestAnimationFrame(function() {
-                      var bar = document.getElementById('oml2d-statusBar');
-                      if (bar) bar.style.transform = correctTx;
-                  });
+          var correctTx = (pos === 'right') ? 'translateX(110%)' : 'translateX(-110%)';
+
+          function fix() {
+              var bar = document.getElementById('oml2d-statusBar');
+              if (bar && bar.style.transform !== correctTx) {
+                  bar.style.transform = correctTx;
               }
+          }
+
+          // 立即修正一次
+          fix();
+
+          // 在父容器上用 subtree + childList + attributes，防止 oh-my-live2d 销毁重建 statusBar 元素
+          var dock = document.querySelector('.oml2d-dock');
+          var parent = dock || document.body;
+          var observer = new MutationObserver(function(mutations) {
+              for (var i = 0; i < mutations.length; i++) {
+                  var m = mutations[i];
+                  // style 变化
+                  if (m.type === 'attributes' && m.target.id === 'oml2d-statusBar') {
+                      fix();
+                      break;
+                  }
+                  // 子元素被增删（可能 statusBar 被重建）
+                  if (m.type === 'childList') {
+                      var bar = document.getElementById('oml2d-statusBar');
+                      if (bar && bar.style.transform !== correctTx) {
+                          bar.style.transform = correctTx;
+                      }
+                  }
+              }
+          });
+          observer.observe(parent, {
+              attributes: true,
+              attributeFilter: ['style'],
+              subtree: true,
+              childList: true
           });
       })();
       // 每次模型加载成功后更新颜色（兼容切换模型后的颜色刷新）
